@@ -1,12 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "index.css";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "store";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from "App";
+import SignUp from "Modules/AuthModule/SignUp/SignUp";
+import LogIn from "Modules/AuthModule/LogIn/LogIn";
+import TodoList from "Modules/TodoList/TodoList";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function NoMatch() {
+  return <Redirect to="/welcome" />;
+}
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/welcome" component={App} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/login" component={LogIn} />
+        <Route path="/todolist" component={TodoList} />
+        <Route component={NoMatch} />
+      </Switch>
+    </BrowserRouter>
+    ,
+  </Provider>,
+  document.getElementById("root")
+);
