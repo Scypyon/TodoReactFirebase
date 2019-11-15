@@ -30,15 +30,15 @@ export default function TodoTask({ el, lp }) {
 
   const editTask = (currentStatus, id) => {
     toggleEditMode(!editMode);
-    db.collection(email)
-      .doc(id)
-      .update({
-        done: currentStatus,
-        title: editedTask
-      });
     if (editMode) {
       dispatch(todoListFetchingDataAction(email));
       setEditedTask("");
+      db.collection(email)
+        .doc(id)
+        .update({
+          done: currentStatus,
+          title: editedTask
+        });
     }
   };
   return (
